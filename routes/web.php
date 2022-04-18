@@ -26,31 +26,31 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('github')->redirect();
-});
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('github')->redirect();
+// });
 
-Route::get('/auth/callback', function () {
-    $githubUser = Socialite::driver('github')->user();
+// Route::get('/auth/callback', function () {
+//     $githubUser = Socialite::driver('github')->user();
 
-    $user = User::where('github_id', $githubUser->id)->first();
+//     $user = User::where('github_id', $githubUser->id)->first();
 
-    if ($user) {
-        $user->update([
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
-        ]);
-    } else {
-        $user = User::create([
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
-            'github_id' => $githubUser->id,
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
-        ]);
-    }
+//     if ($user) {
+//         $user->update([
+//             'github_token' => $githubUser->token,
+//             'github_refresh_token' => $githubUser->refreshToken,
+//         ]);
+//     } else {
+//         $user = User::create([
+//             'name' => $githubUser->name,
+//             'email' => $githubUser->email,
+//             'github_id' => $githubUser->id,
+//             'github_token' => $githubUser->token,
+//             'github_refresh_token' => $githubUser->refreshToken,
+//         ]);
+//     }
 
-    Auth::login($user);
+//     Auth::login($user);
 
-    return redirect('/home');
-});
+//     return redirect('/home');
+// });
